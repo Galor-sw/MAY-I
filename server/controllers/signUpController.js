@@ -2,11 +2,13 @@ const signUp = require("../services/signUpService");
 const dbHandler = require('../services/dbRepository');
 
 
-async function handleSignUp(req, res) {
+
+handleSignUp = async (req, res) => {
     try {
-        const user = req.body
-        user.email = user.email.toLowerCase();
-        await signUp.userExist(user.email);
+        // const user = req.body
+        // user.email = user.email.toLowerCase();
+        // await signUp.userExist(user.email);
+        console.log(req);
         await signUp.saveUser(req.body);
         return res.status(200);
 
