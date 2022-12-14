@@ -1,5 +1,5 @@
 const signUp = require("../services/signUpService");
-const dbHandler = require('../services/dbHandler');
+const dbHandler = require('../services/dbRepository');
 
 
 async function handleSignUp(req, res) {
