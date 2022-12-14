@@ -10,7 +10,6 @@ module.exports = class MongoStorage extends EventEmitter {
 
 
     connect() {
-        console.log(process.env.DB_USER);
         const connectionUrl = `mongodb+srv://May-i-DB:BuULGfKG4mBkBxAm@cluster0.exaxgdi.mongodb.net/May-i-DB?retryWrites=true&w=majority`;
         mongoose
             .connect(connectionUrl)
