@@ -1,4 +1,6 @@
 const signUp = require("../services/signUpService");
+const dbHandler = require('../services/dbRepository');
+
 
 
 handleSignUp = async (req, res) => {
