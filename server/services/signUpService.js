@@ -1,24 +1,35 @@
-const LOGIN = require('../models/LOGIN');
-const USERS = require('../models/users');
-const dbHandler = require('../services/dbHandler');
+const User = require('../models/users');
+const UserRepository = require("./dbRepository")
+const userRepository = new UserRepository();
+const bcrypt = require("bcrypt");
 
 
 async function userExist(mail) {
-    const exist = await USERS.findOne({email: mail});
+    const exist = await User.findOne({email: mail});
     if (exist) {
         throw new Error("Email already exists");
-    } else {
-        const userEmail = mail.toLowerCase();
-        await LOGIN.findOneAndDelete({'email': userEmail});
     }
-
 }
 
-
-async function saveUser(user) {
-
-    const newLOGIN = new LOGIN({"email": user.email, "password": user.password, "creationDate": new Date()});
-    await dbHandler.addDoc(newLOGIN);
+const saveUser = async (user) => {
+    if (user.password) {
+        user.password = await bcrypt.hash(user.password, 12);
+    }
+    const newUser = new User({
+        "username": user.username,
+        "firstname": user.firstname,
+        "lastname": user.lastname,
+        "type": user.type,
+        "email": user.email,
+        "address": user.address,
+        "gender": user.gender,
+        "job": user.job,
+        "description": user.description,
+        "image": user.image,
+        "loginDate": new Date(),
+        "password": user.password
+    });
+    await userRepository.addDoc(newUser);
 
 }
 
