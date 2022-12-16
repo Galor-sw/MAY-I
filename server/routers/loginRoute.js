@@ -1,10 +1,10 @@
 const express = require("express");
 const loginRouter = new express.Router();
-const loginController = require('../controllers/loginController');
-const path = require("path");
+const login_controller = require('../controllers/loginController');
 
 loginRouter.use(express.json());
 
-loginRouter.post('/', loginController.handleLogin);
+loginRouter.post('/', login_controller.handleLogin);
+
 
 module.exports = {loginRouter};
