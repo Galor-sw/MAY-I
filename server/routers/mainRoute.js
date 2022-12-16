@@ -10,6 +10,8 @@ app.use(bodyParser.json());
 
 app.use('/signUp', signUp.signupRoute);
 app.use('/login', login.loginRouter);
-app.use('/homePage', homePage.homePageRouter)
+app.use('/homePage', homePage.homePageRouter);
+
+
 
 module.exports = {app}
