@@ -1,9 +1,8 @@
-
 const bcrypt = require('bcrypt');
 const dbRepository = require('../services/dbRepository');
+const path = require("path");
 
-
-const handleLogin = async (req, res, next) => {
+exports.handleLogin = async (req, res, next) => {
     const Euser = req.body
     const userEmail = Euser.email.toLowerCase();
     const userPassword = req.body.password;
@@ -18,4 +17,6 @@ const handleLogin = async (req, res, next) => {
     res.redirect("/homePage")
 }
 
-module.exports = {handleLogin};
+exports.loginPage = (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/index.html'));
+}
