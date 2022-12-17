@@ -7,21 +7,21 @@ const tileSize = 32;
 const tileMap = new TileMap(tileSize);
 
 function run() {
-  tileMap.draw(canvas, ctx);
+    tileMap.draw(canvas, ctx);
 }
 
 setInterval(run, 1000 / 60);
 
-  function getMousePosition(canvas, event) {
-  let rect = canvas.getBoundingClientRect();
-  let x = event.clientX - rect.left.toFixed();
-  let y = event.clientY - rect.top.toFixed();
-  console.log("Coordinate x: " + x, 
-              "Coordinate y: " + y);
+function getMousePosition(canvas, event) {
+    let rect = canvas.getBoundingClientRect();
+    let x = event.clientX - rect.left.toFixed();
+    let y = event.clientY - rect.top.toFixed();
+    console.log("Coordinate x: " + x,
+        "Coordinate y: " + y);
 }
 
 
-canvas.addEventListener("mousedown", function(e)
-{
-  getMousePosition(canvas, e);
+canvas.addEventListener("mousedown", function (e) {
+    getMousePosition(canvas, e);
+    console.log('test');
 });
