@@ -1,7 +1,8 @@
 @import url(//db.onlinewebfonts.com/c/240a7cb10b49b02c94ceddc459d385a9?family=Gagalin);
+
 body {
-    background: rgb(163,71,164);
-    background: radial-gradient(circle, rgba(163,71,164,1) 0%, rgba(251,252,252,1) 43%, rgba(251,9,213,1) 70%, rgba(253,22,212,1) 88%, rgba(243, 119, 217, 0.56) 100%);
+    background: rgb(163, 71, 164);
+    background: radial-gradient(circle, rgba(163, 71, 164, 1) 0%, rgba(251, 252, 252, 1) 43%, rgba(251, 9, 213, 1) 70%, rgba(253, 22, 212, 1) 88%, rgba(243, 119, 217, 0.56) 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100%;
@@ -82,29 +83,34 @@ h3 {
     z-index: 2;
     transform: rotateY(0deg);
 }
-.back{
+
+.back {
     transform: rotateY(180deg);
 }
+
 .front, .back {
     /*background-color: rgba(0,0,0,.3);*/
     position: absolute;
-    padding:10px 30px;
+    padding: 10px 30px;
     top: 0;
     left: 0;
     right: 0;
 
     backface-visibility: hidden;
 }
-.flip{
+
+.flip {
     transform: rotateY(180deg);
 }
-.signUpButton, .loginButton{
+
+.signUpButton, .loginButton {
     display: inline;
     background: none;
     color: rgba(214, 30, 45, 0.77);
 
 }
-.logo img{
+
+.logo img {
     border-radius: 30px;
     margin-bottom: 40px;
 }
@@ -124,6 +130,7 @@ button {
     cursor: pointer;
 
 }
+
 button:active {
     background-color: rgba(225, 225, 225, 0.56);
     transform: translateY(3px);
@@ -173,7 +180,23 @@ button:active {
     transition: all 0.2s;
 }
 
+.form-field select {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: all 0.2s;
+}
+
 .form-field input::placeholder {
+    color: white;
+}
+
+.form-field select::placeholder {
     color: white;
 }
 
@@ -184,7 +207,18 @@ button:active {
     transition: all 0.2s;
 }
 
+.form-field select:hover,
+.form-field select:focus {
+    background: white;
+    color: #d61e2d;
+    transition: all 0.2s;
+}
+
 .form-field input:hover::placeholder {
+    color: #d61e2d;
+}
+
+.form-field select:hover::placeholder {
     color: #d61e2d;
 }
 
@@ -199,10 +233,12 @@ h1 {
     font-size: 60px;
     text-align: center;
 }
+
 #map {
     box-shadow: 10px 10px 15px black;
     width: 700px;
 }
+
 .wrapper {
     position: sticky;
     align-items: center;
@@ -210,36 +246,42 @@ h1 {
     justify-content: center;
     height: 100vh;
 }
-.leftNavBar{
+
+.leftNavBar {
     position: absolute;
     left: -110px;
-    border-radius:0 50% 50% 0;
+    border-radius: 0 50% 50% 0;
     background-color: rgba(255, 255, 255, 0.62);
     width: 10%;
     padding-left: 100px;
 }
-li a span{
+
+li a span {
     font-size: 80px;
     transition: transform 0.2s;
     color: white;
 }
-li{
+
+li {
     list-style: none;
     font-size: 90px;
 }
-a{
+
+a {
     text-align: center;
 }
 
-.two, .five{
+.two, .five {
     position: relative;
     left: 45px;
 }
-.three, .four{
+
+.three, .four {
     position: relative;
     left: 80px;
 }
-li a span:hover{
+
+li a span:hover {
     font-size: 80px;
     transform: scale(1.3);
 }
