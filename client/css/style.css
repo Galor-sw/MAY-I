@@ -222,6 +222,53 @@ button:active {
     color: #d61e2d;
 }
 
+.select
+{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+
+.select::after
+{
+    border-radius: 16px;
+}
+
+
+
+.description
+{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+.description::placeholder
+{
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+}
+
+.description:hover,
+.description:focus {
+    background: white;
+    color: #d61e2d;
+    transition: all 0.2s;
+}
+
+
 /*========================================= home page =====================================*/
 
 h1 {

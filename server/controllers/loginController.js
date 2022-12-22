@@ -1,12 +1,14 @@
 const bcrypt = require('bcrypt');
-const dbRepository = require('../services/dbRepository');
+const UserRepository = require("../services/dbRepository")
+const userRepository = new UserRepository();
 const path = require("path");
+
 
 exports.handleLogin = async (req, res, next) => {
     const Euser = req.body
     const userEmail = Euser.email.toLowerCase();
     const userPassword = req.body.password;
-    const user = await dbRepository.getUserByEmail(userEmail)
+    const user = await userRepository.getUserByEmail(userEmail);
     if (!user) {
         throw new Error("user doesn't exist")
     }

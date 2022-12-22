@@ -17,21 +17,4 @@ module.exports = class MongoStorage extends EventEmitter {
             .catch(err => console.log(`connection error: ${err}`));
     }
 
-    // find() {
-    //     return this.Model.find({});
-    // }
-    //
-    // retrieve(id) {
-    //     return this.Model.find({id});
-    // }
-    //
-    // create(data) {
-    //     const entity = new this.Model(data);
-    //     entity.save();
-    // }
-    //
-    // delete(id) {
-    //     return this.Model.deleteOne({id});
-    // }
-
 }
