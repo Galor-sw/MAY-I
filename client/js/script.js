@@ -48,7 +48,7 @@ document.onsubmit = (e) => {
         }
     }
     genericFetch(data, path)
-        .then( retVal => {
+        .then(retVal => {
 
             const body = retVal.json()
             if (body.message) {
@@ -67,7 +67,7 @@ document.onsubmit = (e) => {
 const genericFetch = async (data, path) => {
 
     console.log(`${host}/${path}`)
-    return  fetch(`${host}/${path}`, {
+    return fetch(`${host}/${path}`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
