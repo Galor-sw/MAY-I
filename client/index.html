@@ -12,7 +12,7 @@
     <div class="login-card-content" id="flipper">
         <div class="front">
             <div class="logo">
-                <img alt="" src="Images/may-i.png">
+                <img alt="" src="images/may-i.png">
             </div>
             <form action="#" class="form" id="form" method="POST">
                 <div class="form-field username">
@@ -20,7 +20,7 @@
                         <span class="material-symbols-outlined">account_circle</span>
                     </div>
                     <label>
-                        <input name="username" placeholder="Username" required type="text">
+                        <input name="email" placeholder="Email" required type="text">
                     </label>
                 </div>
                 <div class="form-field password">
@@ -42,7 +42,7 @@
         </div>
         <div class="back">
             <div class="logo">
-                <img alt="" src="Images/may-i.png">
+                <img alt="" src="images/may-i.png">
             </div>
             <form action="#" class="form" id="signup-form" method="POST">
                 <div class="form-field r-username">
@@ -55,7 +55,7 @@
                 </div>
                 <div class="form-field r-firstname">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">badge</span>
                     </div>
                     <label>
                         <input name="firstname" placeholder="First name" required type="text">
@@ -63,7 +63,7 @@
                 </div>
                 <div class="form-field r-lastname">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">badge</span>
                     </div>
                     <label>
                         <input name="lastname" placeholder="Last name" required type="text">
@@ -79,7 +79,7 @@
                 </div>
                 <div class="form-field r-address">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">home</span>
                     </div>
                     <label>
                         <input name="address" placeholder="Address" required type="text">
@@ -87,18 +87,17 @@
                 </div>
                 <div class="form-field r-gender">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">man_4</span>
                     </div>
-                    <label>
-                        <select name="gender" placeholder="Gender" type="text">
-                            <option value="female">Female</option>
-                            <option value="male">Male</option>
-                        </select>
-                    </label>
+                    <label for="gender"></label>
+                    <select id="gender" name="gender" placeholder="Gender">
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                    </select>
                 </div>
                 <div class="form-field r-job">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">work</span>
                     </div>
                     <label>
                         <input name="job" placeholder="Job" required type="text">
@@ -106,10 +105,10 @@
                 </div>
                 <div class="form-field r-description">
                     <div class="icon">
-                        <span class="material-symbols-outlined"></span>
+                        <span class="material-symbols-outlined">description</span>
                     </div>
                     <label>
-                        <textarea name="description" placeholder="description" type="password"></textarea>
+                        <textarea class="description" name="description" placeholder="Description"></textarea>
                     </label>
                 </div>
                 <div class="form-field r-password">

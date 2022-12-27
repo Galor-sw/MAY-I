@@ -1,8 +1,8 @@
 @import url(//db.onlinewebfonts.com/c/240a7cb10b49b02c94ceddc459d385a9?family=Gagalin);
 
 body {
-    background: rgb(163, 71, 164);
-    background: radial-gradient(circle, rgba(163, 71, 164, 1) 0%, rgba(251, 252, 252, 1) 43%, rgba(251, 9, 213, 1) 70%, rgba(253, 22, 212, 1) 88%, rgba(243, 119, 217, 0.56) 100%);
+    background: #FEB9C6;
+    background: radial-gradient(circle, #FEB9C6 0%, #048399, #B96B85, #005067 88%, #005067 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100%;
@@ -222,66 +222,100 @@ button:active {
     color: #d61e2d;
 }
 
+.select {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+
+.select::after {
+    border-radius: 16px;
+}
+
+
+.description {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    width: 100%;
+    border-radius: 16px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+}
+
+.description::placeholder {
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+}
+
+.description:hover,
+.description:focus {
+    background: white;
+    color: #d61e2d;
+    transition: all 0.2s;
+}
+
+
 /*========================================= home page =====================================*/
 
 h1 {
-    position: absolute;
     top: 30px;
     font-family: "Gagalin", sans-serif;
     padding: 10px 20px;
-    color: #f545bd;
+    color: #FEB9C6;
     font-size: 60px;
     text-align: center;
 }
 
-#map {
-    box-shadow: 10px 10px 15px black;
-    width: 700px;
-}
-
 .wrapper {
-    position: sticky;
-    align-items: center;
-    display: flex;
     justify-content: center;
     height: 100vh;
 }
 
-.leftNavBar {
-    position: absolute;
-    left: -110px;
-    border-radius: 0 50% 50% 0;
-    background-color: rgba(255, 255, 255, 0.62);
-    width: 10%;
-    padding-left: 100px;
+#map {
+    box-shadow: 10px 10px 15px black;
+    width: 400px;
 }
 
-li a span {
-    font-size: 80px;
-    transition: transform 0.2s;
-    color: white;
+
+.card {
+    align-self: center;
 }
 
-li {
-    list-style: none;
-    font-size: 90px;
+.card-body {
+    display: flex;
+    align-self: center;
 }
 
-a {
+.card-link img {
+    width: 20px;
+    height: 20px;
+}
+
+
+main {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#reader {
+    width: 300px;
+}
+
+#result {
     text-align: center;
+    font-size: 1.5rem;
 }
 
-.two, .five {
-    position: relative;
-    left: 45px;
-}
 
-.three, .four {
-    position: relative;
-    left: 80px;
-}
 
-li a span:hover {
-    font-size: 80px;
-    transform: scale(1.3);
-}
