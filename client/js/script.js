@@ -42,11 +42,12 @@ document.onsubmit = (e) => {
             gender: form.elements['gender'].value,
             job: form.elements['job'].value,
             description: form.elements['description'].value,
-            image: "{data: Buffer, contentType: String}",
+            image: form.elements['filename'].files[0],
             loginDate: new Date(),
             password: form.elements['password'].value,
         }
     }
+    console.log(form.elements['filename'].files[0]);
     genericFetch(data, path)
         .then(retVal => {
 
