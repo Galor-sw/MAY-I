@@ -1,11 +1,11 @@
-const User = require('../models/users');
-const UserRepository = require("./dbRepository")
+const UserRepository = require("../repositories/userRepository")
 const userRepository = new UserRepository();
 const bcrypt = require("bcrypt");
-
+const path = require('path');
+const fs = require("fs");
 
 async function userExist(mail) {
-    const exist = await User.findOne({email: mail});
+    const exist = await userRepository.find({email: mail});
     if (exist) {
         throw new Error("Email already exists");
     }
@@ -15,6 +15,7 @@ const saveUser = async (user) => {
     if (user.password) {
         user.password = await bcrypt.hash(user.password, 12);
     }
+
     const newUser = new User({
         "username": user.username,
         "firstname": user.firstname,
@@ -25,7 +26,6 @@ const saveUser = async (user) => {
         "gender": user.gender,
         "job": user.job,
         "description": user.description,
-        "image": user.image,
         "loginDate": new Date(),
         "password": user.password
     });

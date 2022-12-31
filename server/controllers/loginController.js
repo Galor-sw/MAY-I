@@ -1,8 +1,33 @@
 const bcrypt = require('bcrypt');
-const UserRepository = require("../services/dbRepository")
+const UserRepository = require("../repositories/userRepository")
 const userRepository = new UserRepository();
+const imageRepository = require("../repositories/imageRepository");
+const newImage = new imageRepository;
 const path = require("path");
 const signUp = require("../services/signUpService");
+const fs = require("fs");
+
+
+/////////////////////////////////////////////////////////////////////////////////
+const multer = require("multer");
+
+
+//Storage
+const Storage = multer.diskStorage({
+    destination: "uploads",
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    },
+});
+
+const upload = multer({
+    storage: Storage
+}).single('image')
+
+/////////////////////
+
+
+//////////////////////////////////////////////////////////////////////
 
 exports.sendLoginPage = (req, res) => {
     console.log("sendLoginPage")
@@ -28,8 +53,7 @@ exports.handleLogin = async (req, res, next) => {
         if (!await bcrypt.compare(userPassword, user.password)) {
             throw new Error("incorrect password")
         }
-    }
-    catch (err){
+    } catch (err) {
         console.log(err)
     }
 
@@ -39,13 +63,24 @@ exports.handleLogin = async (req, res, next) => {
 
 exports.handleSignUp = async (req, res) => {
     try {
+        await upload(req, res, (err) => {
+            if (err) {
+                console.log(err)
+            } else {
+                const imgChunk = {
+                    email: req.body.email,
+                    image: {
+                        data: req.body.image.filename,
+                        contentType: 'image/png'
+                    }
+                }
+                newImage.create(imgChunk);
+            }
+        })
         const user = req.body
         user.email = user.email.toLowerCase();
-        console.log("1")
         await signUp.userExist(user.email);
-        console.log("2")
         await signUp.saveUser(req.body);
-        console.log("3")
 
         res.status(200);
         res.redirect('/');

@@ -1,13 +1,32 @@
 const MongoStorage = require('../data/MongoStorage');
-const User = require('../models/users');
 
-module.exports = class usersRepository {
+module.exports = class UsersRepository {
     constructor() {
         if (process.env.DB_HOST && process.env.DB_USER && process.env.DB_PASS) {
             this.storage = new MongoStorage('user');
-
-        }// needs to add backup in case the of connection in
+        }
     }
+
+    find() {
+        return this.storage.find();
+    }
+
+    retrieve(param) {
+        return this.storage.retrieve(param);
+    }
+
+    create(obj) {
+        return this.storage.create(obj);
+    }
+
+    update(param, data) {
+        return this.storage.update(param, data);
+    }
+
+    delete(email) {
+        return this.storage.delete(email);
+    }
+
 
     getUserByEmail = async (mail) => {
         return User.findOne({email: mail});
@@ -23,5 +42,25 @@ module.exports = class usersRepository {
         }
 
     }
-}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
