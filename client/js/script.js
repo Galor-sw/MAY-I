@@ -16,9 +16,22 @@ registerButton.addEventListener('click', () => {
 
 });
 
+let imageFile;
+async function loadimg() {
+    const file = document.getElementById('signup-form').elements['image'].files[0];
+    const reader = new FileReader();
+    await reader.readAsDataURL(file);
+    reader.onloadend = () => {
+        imageFile = reader.result;
+    }
+
+}
+
 document.onsubmit = (e) => {
 
     e.preventDefault();
+
+    console.log(imageFile);
 
     let path, data, form
 
@@ -42,12 +55,12 @@ document.onsubmit = (e) => {
             gender: form.elements['gender'].value,
             job: form.elements['job'].value,
             description: form.elements['description'].value,
-            image: form.elements['filename'].files[0],
+            image: imageFile,
             loginDate: new Date(),
             password: form.elements['password'].value,
         }
     }
-    console.log(form.elements['filename'].files[0]);
+    console.log(data);
     genericFetch(data, path)
         .then(retVal => {
 
@@ -57,7 +70,7 @@ document.onsubmit = (e) => {
                 location.reload();
             }
 
-            window.location.replace(retVal.url)
+            //window.location.replace(retVal.url)
 
         })
         .catch(e => {
