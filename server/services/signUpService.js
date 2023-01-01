@@ -1,11 +1,12 @@
 const UserRepository = require("../repositories/userRepository")
 const userRepository = new UserRepository();
 const bcrypt = require("bcrypt");
+const User = require("../models/User.model")
 const path = require('path');
 const fs = require("fs");
 
 async function userExist(mail) {
-    const exist = await userRepository.find({email: mail});
+    const exist = await userRepository.retrieve({email: mail});
     if (exist) {
         throw new Error("Email already exists");
     }
@@ -27,6 +28,7 @@ const saveUser = async (user) => {
         "job": user.job,
         "description": user.description,
         "loginDate": new Date(),
+        "image": user.image,
         "password": user.password
     });
     await userRepository.addDoc(newUser);
