@@ -1,30 +1,10 @@
 const bcrypt = require('bcrypt');
 const UserRepository = require("../repositories/userRepository")
 const userRepository = new UserRepository();
-const imageRepository = require("../repositories/imageRepository");
-const newImage = new imageRepository;
 const path = require("path");
 const signUp = require("../services/signUpService");
-const fs = require("fs");
-
-
-/////////////////////////////////////////////////////////////////////////////////
-const multer = require("multer");
-
-
-//Storage
-const Storage = multer.diskStorage({
-    destination: "uploads",
-    filename: (req, file, cb) => {
-        cb(null, file.originalname);
-    },
-});
-
-const upload = multer({
-    storage: Storage
-}).single('image')
-
-/////////////////////
+const {cloudinary} = require("../data/cloud");
+const {ImageModel} = require("../models/Image.model");
 
 
 //////////////////////////////////////////////////////////////////////
@@ -74,8 +54,7 @@ exports.handleSignUp = async (req, res) => {
         });
         user.email = user.email.toLowerCase();
         await signUp.userExist(user.email);
-        await signUp.saveUser(req.body);
-
+        await signUp.saveUser(user);
         res.status(200);
         res.redirect('/');
 

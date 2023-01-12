@@ -1,15 +1,18 @@
 const {model, Schema} = require('mongoose');
 
 const ImageSchema = new Schema({
-    email: {type: String, required: true},
-    image: {
-        data: Buffer,
-        contentType: String
+    imageId: {
+        type: String,
+        required: true
     },
-}, {collection: 'image'});
+    ImageUrl: {
+        type: String,
+        required: true
+    }
+});
 
 const ImageModel = model('image', ImageSchema);
 
 
-module.exports = ImageModel;
+module.exports = {ImageModel, ImageSchema};
 
