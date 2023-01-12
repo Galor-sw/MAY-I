@@ -1,4 +1,5 @@
 const {model, Schema} = require('mongoose');
+const {ImageSchema} = require("./Image.model");
 
 const userSchema = new Schema({
     username: {type: String, required: true},
@@ -10,7 +11,9 @@ const userSchema = new Schema({
     gender: {type: String, required: true},
     job: {type: String, required: false},
     description: {type: String, required: false},
-    image: {data: Buffer, contentType: String},
+    image: {
+        type: ImageSchema
+    },
     loginDate: {type: Date, default: new Date()},
     password: {type: String, required: true},
 }, {collection: 'user'});
