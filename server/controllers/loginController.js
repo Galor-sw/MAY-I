@@ -63,21 +63,15 @@ exports.handleLogin = async (req, res, next) => {
 
 exports.handleSignUp = async (req, res) => {
     try {
-        await upload(req, res, (err) => {
-            if (err) {
-                console.log(err)
-            } else {
-                const imgChunk = {
-                    email: req.body.email,
-                    image: {
-                        data: req.body.image.filename,
-                        contentType: 'image/png'
-                    }
-                }
-                newImage.create(imgChunk);
-            }
-        })
-        const user = req.body
+        const user = req.body;
+        const {image} = user;
+        const uploadedStatus = await cloudinary.v2.uploader.upload(image, {
+            upload_preset: "users_profile"
+        });
+        user.image = new ImageModel({
+            imageId: uploadedStatus.public_id,
+            ImageUrl: uploadedStatus.secure_url
+        });
         user.email = user.email.toLowerCase();
         await signUp.userExist(user.email);
         await signUp.saveUser(req.body);
