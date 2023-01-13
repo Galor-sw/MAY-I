@@ -17,6 +17,7 @@ registerButton.addEventListener('click', () => {
 });
 
 let imageFile;
+
 async function loadimg() {
     const file = document.getElementById('signup-form').elements['image'].files[0];
     const reader = new FileReader();
@@ -70,7 +71,7 @@ document.onsubmit = (e) => {
                 location.reload();
             }
 
-            //window.location.replace(retVal.url)
+            window.location.replace(retVal.url)
 
         })
         .catch(e => {

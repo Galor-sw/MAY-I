@@ -22,8 +22,8 @@ exports.sendHomePage = async (req, res, next) => {
 }
 
 exports.handleLogin = async (req, res, next) => {
-    const Euser = req.body
-    const userEmail = Euser.email.toLowerCase();
+    const userBody = req.body;
+    const userEmail = userBody.email.toLowerCase();
     const userPassword = req.body.password;
     try {
         const user = await userRepository.getUserByEmail(userEmail);
@@ -33,11 +33,10 @@ exports.handleLogin = async (req, res, next) => {
         if (!await bcrypt.compare(userPassword, user.password)) {
             throw new Error("incorrect password")
         }
+        req.session.user = user;
     } catch (err) {
         console.log(err)
     }
-
-    res.status(200);
     res.redirect("/homePage")
 }
 
@@ -62,6 +61,30 @@ exports.handleSignUp = async (req, res) => {
         console.log("4")
         res.status(401).json({message: e.message});
     }
+}
+
+exports.handleLogOut = function (req, res) {
+    if (req.session) {
+        // Destroy the session
+        req.session.destroy(function (err) {
+            if (err) {
+                console.log(err);
+                res.send("Error while logging out.");
+            } else {
+                res.redirect("/");
+            }
+        });
+    } else {
+        // Redirect to login page if no session exists
+        res.redirect("/");
+    }
+}
+
+exports.getSessionInfo = function (req, res) {
+    if (req.session.hasOwnProperty('user'))
+        res.status(200).json(req.session.user);
+    else
+        res.status(404).json({});
 }
 
 const fileSender = (req, res, val) => {
