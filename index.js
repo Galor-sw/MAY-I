@@ -7,7 +7,8 @@ const fs = require("fs");
 const cors = require('cors')
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
-
+const socketio = require('socket.io');
+const formatMessage = require('./utils/messages');
 
 const port = process.env.PORT || 4020;
 const app = express();
@@ -38,4 +39,51 @@ app.use('/client/css', express.static(__dirname + '/client/css'));
 app.use('/client/js', express.static(__dirname + '/client/js'));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
-app.listen(port, () => console.log(`Express server is running on port ${port}`));
+const server = app.listen(port, () => console.log(`Express server is running on port ${port}`));
+
+const io = socketio(server);
+const admin = 'Chat Admin';
+
+const sockets = {};
+const lobby = 'BarName';
+
+io.on('connection', socket => {
+    //save the socket in our dict of sockets with the user id
+    const userId = socket.handshake.query.id;
+    const roomId = socket.handshake.query.roomId;
+
+    sockets[userId] = socket;
+    console.log('join: ' + lobby)
+    socket.join(lobby)
+
+    socket.on("joinChat", ({username}) => {
+
+        console.log('leave: ' + lobby)
+        socket.leave(lobby)
+
+        console.log('join: ' + roomId)
+        socket.join(roomId)
+
+        socket.emit('message', formatMessage(admin, `Hey ${username}, enjoy your chat with ${username}`));
+        socket.to(roomId).emit('message', formatMessage(admin, `${username} has joined chat...`));
+
+        socket.on('typing', (data) => {
+            socket.to(roomId).emit('display', data)
+        })
+
+        socket.on('chatMessage', msg => {
+            socket.emit('message', formatMessage(username, msg));
+            socket.to(roomId).emit('message', formatMessage(username, msg));
+        });
+
+        socket.on('close', msg => {
+            socket.to(roomId).emit('message', formatMessage(admin, `${msg.user} ${msg.text}`));
+            socket.emit('redirect', 'http://localhost:8080/');
+        });
+
+        socket.on('disconnect', () => {
+            delete sockets[userId];
+            socket.leave()
+        })
+    });
+});
