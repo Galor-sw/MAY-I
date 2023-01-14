@@ -1,5 +1,6 @@
 import TileMap from "./map2D.js";
 
+
 const canvas = document.getElementById("map");
 const ctx = canvas.getContext("2d");
 const tileSize = 32;
