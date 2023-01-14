@@ -14,7 +14,11 @@ exports.sendLoginPage = (req, res) => {
     fileSender(req, res, '../../client/index.html')
     //res.sendFile(path.join(__dirname, '../../client/index.html'));
 }
-
+exports.sendQRPage = (req, res) => {
+    console.log("sendQRCodePage")
+    fileSender(req, res, '../../client/qrCode.html')
+    //res.sendFile(path.join(__dirname, '../../client/index.html'));
+}
 exports.sendHomePage = async (req, res, next) => {
     console.log("sendHomePage")
     fileSender(req, res, '../../client/homePage.html')
@@ -37,7 +41,7 @@ exports.handleLogin = async (req, res, next) => {
     } catch (err) {
         console.log(err)
     }
-    res.redirect("/homePage")
+    res.redirect("/qrCode")
 }
 
 exports.handleSignUp = async (req, res) => {
