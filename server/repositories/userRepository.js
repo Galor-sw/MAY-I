@@ -1,4 +1,5 @@
 const MongoStorage = require('../data/MongoStorage');
+const User = require('../models/User.model')
 
 module.exports = class UsersRepository {
     constructor() {
