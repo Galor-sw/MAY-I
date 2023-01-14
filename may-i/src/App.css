@@ -1,0 +1,25 @@
+.man {
+    background-image: url("images/m.png");
+}
+
+.woman {
+    background-image: url("images/w.png");
+}
+
+.floor {
+    background-image: url("images/parquet.png");
+}
+
+.drink {
+    background-image: url("images/drink.png")
+}
+
+.chat {
+    background-image: url("images/chat.png")
+}
+
+.mainLinear {
+    background: radial-gradient(circle, #FEB9C6 0%, #048399, #B96B85, #005067 88%, #005067 100%);
+}
+
+
