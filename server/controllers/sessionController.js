@@ -12,13 +12,11 @@ const {ImageModel} = require("../models/Image.model");
 exports.sendLoginPage = (req, res) => {
     console.log("sendLoginPage")
     fileSender(req, res, '../../client/index.html')
-    //res.sendFile(path.join(__dirname, '../../client/index.html'));
 }
 
 exports.sendHomePage = async (req, res, next) => {
     console.log("sendHomePage")
-    fileSender(req, res, '../../client/homePage.html')
-    //res.sendfile(path.join(__dirname, '../../client/homePage.html'))
+    fileSender(req, res, '../../client/homePage1.html')
 }
 
 exports.handleLogin = async (req, res, next) => {
@@ -90,3 +88,11 @@ exports.getSessionInfo = function (req, res) {
 const fileSender = (req, res, val) => {
     res.sendFile(path.join(__dirname, val));
 }
+
+exports.sendChatPage = (req, res) => {
+    console.log("sendChatPage")
+    fileSender(req, res, '../../client/chat.html')
+}
+
+
+
