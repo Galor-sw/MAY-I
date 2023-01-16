@@ -5,6 +5,8 @@ const path = require("path");
 const signUp = require("../services/signUpService");
 const {cloudinary} = require("../data/cloud");
 const {ImageModel} = require("../models/Image.model");
+const crypto = require('crypto');
+const sessionId = crypto.randomBytes(32).toString('hex');
 
 
 //////////////////////////////////////////////////////////////////////
@@ -36,6 +38,8 @@ exports.handleLogin = async (req, res, next) => {
             throw new Error("incorrect password")
         }
         req.session.user = user;
+        console.log({login: req.session.user});
+        console.log({cookies: req.cookies});
     } catch (err) {
         console.log(err)
     }
@@ -83,11 +87,18 @@ exports.handleLogOut = function (req, res) {
 }
 
 exports.getSessionInfo = function (req, res) {
-    if (req.session.hasOwnProperty('user'))
-        res.status(200).json(req.session.user);
-    else
-        res.status(404).json({});
-}
+    if (req.session) {
+        console.log(req.session)
+        res.status(200).json(req.session);
+    } else {
+        res.status(401).send('No session found');
+    }
+};
+// if (req.session.hasOwnProperty('user'))
+//     res.status(200).json(req.session.user);
+// else
+//     res.status(404).json({});
+
 
 const fileSender = (req, res, val) => {
     res.sendFile(path.join(__dirname, val));
