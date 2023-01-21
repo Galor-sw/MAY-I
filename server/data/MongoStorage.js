@@ -31,7 +31,7 @@ module.exports = class MongoStorage extends EventEmitter {
 
     create(data) {
         const entity = new this.Model(data);
-        entity.save();
+        return entity.save();
     }
 
     delete(email) {

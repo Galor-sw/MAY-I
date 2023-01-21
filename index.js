@@ -2,6 +2,7 @@ require('dotenv').config({path: '.env'});
 const express = require("express");
 const bodyParser = require('body-parser');
 const totalSession = require('./server/routers/sessionRoute');
+const connectedRoute = require('./server/routers/connectedRoute');
 const cors = require('cors')
 const cookieParser = require("cookie-parser");
 const cookieSession = require('cookie-session');
@@ -30,9 +31,9 @@ app.use(express.static('./public'));
 app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}))
 
-
+ 
 app.use('/', totalSession.sessionRouter);
-
+app.use('/connected', connectedRoute.connectedRouter);
 //load files
 app.use('/client/css', express.static(__dirname + '/client/css'));
 app.use('/client/js', express.static(__dirname + '/client/js'));
