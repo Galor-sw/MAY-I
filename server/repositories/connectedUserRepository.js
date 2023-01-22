@@ -8,7 +8,7 @@ module.exports = class connectedUser {
     }
 
     getAll() {
-        return this.storage.find();
+        return this.storage.find().populate({path: 'user_id', model:'user'});
     }
 
     create(obj) {
