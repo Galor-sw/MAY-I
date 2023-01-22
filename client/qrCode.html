@@ -20,6 +20,7 @@
         referrerpolicy="no-referrer"
         src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.4/html5-qrcode.min.js"></script>
 <script>
+    const host = window.location.origin;
     const scanner = new Html5QrcodeScanner('reader', {
         qrbox: {
             width: 250,
@@ -30,12 +31,35 @@
     scanner.render(success, error);
 
     function success(result) {
-        document.getElementById('result').innerHTML = `
-<h2>Success!</h2>
-<p><a href="${result}">${result}</a></p>
-`;
+        const currentUrl = window.location.href;
+        const userID = currentUrl.split('/')[4];
+        // console.log(userID);
+        const url = new URL(result);
+        const searchParams = new URLSearchParams(url.search);
+        const row = searchParams.get("row");
+        const col = searchParams.get("col");
+
+        const data = {
+            "user_id": userID,
+            "seat": {
+                "row": row,
+                "col": col
+            }
+        }
+
+        fetch(`http://localhost:4020/connected/user`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        });
+
+        window.location.href = `${result}`;
+
         scanner.clear();
         document.getElementById('reader').remove();
+
     }
 
     function error(err) {
@@ -44,3 +68,4 @@
 </script>
 </body>
 </html>
+
