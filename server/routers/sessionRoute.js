@@ -9,7 +9,7 @@ sessionRouter.get('/', session_controller.sendLoginPage)
 sessionRouter.get('/homePage', session_controller.sendHomePage);
 sessionRouter.get('/chat', session_controller.sendChatPage)
 sessionRouter.get('/userInfo', session_controller.getSessionInfo);
-sessionRouter.get('/qrCode', session_controller.sendQRPage)
+sessionRouter.get('/qrCode/:id', session_controller.sendQRPage)
 
 sessionRouter.post('/login', session_controller.handleLogin);
 sessionRouter.post('/signUp', session_controller.handleSignUp);
