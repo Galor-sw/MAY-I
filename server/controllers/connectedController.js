@@ -3,7 +3,6 @@ const connectedUsers = new ConnectedUsers();
 
 exports.getAll = async (req, res) => {
     const tables = await connectedUsers.getAll();
-    console.log(tables)
     if (!tables) {
         throw new Error("tables doesn't exist")
     }
