@@ -44,7 +44,7 @@ app.use('/favicon.ico', express.static('./favicon.ico'));
 
 const server = app.listen(port, () => console.log(`Express server is running on port ${port}`));
 
-const io = socketio(server);
+const io = socketio(server, {cors: {origin: "*"}});
 const admin = 'Chat Admin';
 
 const sockets = {};
@@ -57,6 +57,19 @@ io.on('connection', socket => {
     sockets[userId] = socket;
     console.log('join: ' + lobby)
     socket.join(lobby)
+
+    // test
+    console.log(sockets[userId])
+    console.log(roomId)
+    console.log(userId)
+    socket.emit('test', "testing ah sheli")
+
+    socket.on('testing', message => {
+        console.log(message)
+
+        socket.emit('test2', "hey react")
+
+    });
 
     socket.on("joinChat", ({username}) => {
 
