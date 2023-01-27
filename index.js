@@ -59,7 +59,6 @@ io.on('connection', socket => {
     socket.join(lobby)
 
     // test
-    console.log(sockets[userId])
     console.log(roomId)
     console.log(userId)
     socket.emit('test', "testing ah sheli")
@@ -71,8 +70,8 @@ io.on('connection', socket => {
 
     });
 
-    socket.on("joinChat", ({username}) => {
-
+    socket.on("joinChat", (username) => {
+        console.log(username)
         console.log('leave: ' + lobby)
         socket.leave(lobby)
 
@@ -93,7 +92,7 @@ io.on('connection', socket => {
 
         socket.on('close', msg => {
             socket.to(roomId).emit('message', formatMessage(admin, `${msg.user} ${msg.text}`));
-            socket.emit('redirect', 'http://localhost:8080/');
+            socket.emit('redirect', 'http://localhost:4020/');
         });
 
         socket.on('disconnect', () => {
