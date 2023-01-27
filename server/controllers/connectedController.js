@@ -10,10 +10,17 @@ exports.getAll = async (req, res) => {
     res.send(tables);
 }
 exports.addUser = async (req, res) => {
-    console.log(req.body);
-    const userToAdd = await connectedUsers.create(req.body);
-    if (!userToAdd) {
-        throw new Error("somthing went wrong")
+    const {seat} = req.body;
+    const row = seat.row;
+    const col = seat.col;
+    const result = await connectedUsers.retrieve({'seat.row': row, 'seat.col': col});
+    if (result) {
+        res.status(409).send({error: 'Chair already in use'});
+    } else {
+        const userToAdd = await connectedUsers.create(req.body);
+        if (!userToAdd) {
+            throw new Error("something went wrong")
+        }
+        res.send(200);
     }
-    res.send(200);
 }

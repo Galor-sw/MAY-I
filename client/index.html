@@ -11,9 +11,7 @@
 <div class="login-card">
     <div class="login-card-content" id="flipper">
         <div class="front">
-            <div class="logo">
-                <img alt="" src="images/may-i.png">
-            </div>
+            <img alt="My Image" class="my-image" src="">
             <form action="#" class="form" id="form" method="POST">
                 <div class="form-field username">
                     <div class="icon">
@@ -37,13 +35,8 @@
                 </div>
             </form>
         </div>
-        <div class="login-card-footer" id="login-card-footer">
-            <a href="">Forgot password?</a>
-        </div>
         <div class="back">
-            <div class="logo">
-                <img alt="" src="images/may-i.png">
-            </div>
+            <img alt="My Image" class="my-image" src="">
             <form action="#" class="form" id="signup-form" method="POST">
                 <div class="form-field r-username">
                     <div class="icon">
@@ -116,7 +109,9 @@
                         <span class="material-symbols-outlined">image</span>
                     </div>
                     <label>
-                        <input onchange="loadimg()" name="image" type="file" accept="image/*">
+                        <input accept="image/*" name="image" onchange="loadimg()" pattern=".+" required
+                               title="Please select a image."
+                               type="file">
                     </label>
                 </div>
                 <div class="form-field r-password">

@@ -8,10 +8,22 @@ module.exports = class connectedUser {
     }
 
     getAll() {
-        return this.storage.find().populate({path: 'user_id', model:'user'});
+        return this.storage.find().populate({path: 'user_id', model: 'user'});
+    }
+
+    find() {
+        return this.storage.find();
+    }
+
+    retrieve(param) {
+        return this.storage.retrieve(param);
     }
 
     create(obj) {
         return this.storage.create(obj);
+    }
+
+    delete(id) {
+        return this.storage.delete(id);
     }
 }

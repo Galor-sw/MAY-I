@@ -110,10 +110,11 @@ h3 {
 
 }
 
-.logo img {
+.my-image {
     border-radius: 30px;
     margin-bottom: 40px;
 }
+
 
 button {
     background: white;
@@ -347,3 +348,22 @@ main {
 }
 
 
+@media only screen and (max-width: 600px) {
+    /* styles for screens smaller than 600px go here */
+    .form-field {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .form-field .icon {
+        width: 20%;
+    }
+
+    .form-field label {
+        width: 80%;
+    }
+
+    .form-field input {
+        width: 100%;
+    }
+}

@@ -1,17 +1,22 @@
 const loginButton = document.getElementById("loginButton");
 const registerButton = document.getElementById("registerButton");
-const loginCardFooter = document.getElementById("login-card-footer");
 let status = 'login';
 const host = window.location.origin;
 
+//bringing the pic from cloudinary.
+
+document.addEventListener("DOMContentLoaded", function () {
+    let myImages = document.getElementsByClassName("my-image");
+    myImages[0].src = "https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png";
+    myImages[1].src = "https://res.cloudinary.com/dm2gqkilw/image/upload/v1674659084/users_profile/may-i_orgnc7.png";
+});
+
 loginButton.addEventListener('click', () => {
     document.querySelector("#flipper").classList.toggle("flip");
-    loginCardFooter.style.display = 'block';
     status = 'login';
 });
 registerButton.addEventListener('click', () => {
     document.querySelector("#flipper").classList.toggle("flip");
-    loginCardFooter.style.display = 'none';
     status = 'signup';
 
 });

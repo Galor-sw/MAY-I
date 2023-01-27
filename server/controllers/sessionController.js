@@ -1,3 +1,5 @@
+const ConnectedUsers = require("../repositories/connectedUserRepository")
+const connectedUsers = new ConnectedUsers();
 const bcrypt = require('bcrypt');
 const UserRepository = require("../repositories/userRepository")
 const userRepository = new UserRepository();
@@ -70,21 +72,28 @@ exports.handleSignUp = async (req, res) => {
     }
 }
 
-exports.handleLogOut = function (req, res) {
-    if (req.session) {
-        // Destroy the session
-        req.session.destroy(function (err) {
-            if (err) {
-                console.log(err);
-                res.send("Error while logging out.");
-            } else {
-                res.redirect("/");
-            }
-        });
-    } else {
-        // Redirect to login page if no session exists
-        res.redirect("/");
+exports.handleLogOut = async function (req, res) {
+    // if (req.session) {
+    //     // Destroy the session
+    //     req.session.destroy(function (err) {
+    //         if (err) {
+    //             console.log(err);
+    //             res.send("Error while logging out.");
+    //         } else {
+    //             res.redirect("/");
+    //         }
+    //     });
+
+    const unconnected = await connectedUsers.delete(req.body);
+    if (!unconnected) {
+        throw new Error("failed to logout")
     }
+    res.send(200);
+
+    // } else {
+    //     // Redirect to login page if no session exists
+    //     res.redirect("/");
+    // }
 }
 
 exports.getSessionInfo = function (req, res) {
