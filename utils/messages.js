@@ -4,7 +4,8 @@ function formatMessage(username, text){
     return {
         username,
         text,
-        time: moment().format('LT')
+        time: moment().format('LT'),
+        id: `${username}+${text}+${Date.now()}`
     };
 };
 
