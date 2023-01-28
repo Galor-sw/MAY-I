@@ -8,12 +8,14 @@ exports.getAll = async (req, res) => {
     }
     res.send(tables);
 }
+
 exports.addUser = async (req, res) => {
-    const {seat} = req.body;
+    const {user_id, seat} = req.body;
     const row = seat.row;
     const col = seat.col;
-    const result = await connectedUsers.retrieve({'seat.row': row, 'seat.col': col});
-    if (result) {
+    const idResult = await connectedUsers.retrieve({'user_id': user_id});
+    const seatResult = await connectedUsers.retrieve({'seat.row': row, 'seat.col': col});
+    if (seatResult && idResult) {
         res.status(409).send({error: 'Chair already in use'});
     } else {
         const userToAdd = await connectedUsers.create(req.body);
