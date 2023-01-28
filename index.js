@@ -63,22 +63,46 @@ io.on('connection', socket => {
         console.log('joined to room: ' + roomId)
     }
 
-    // test
+    socket.on('refuseChat', user => {
+        console.log(Object.keys(sockets))
+        console.log(sockets[user])
+        console.log(user)
+        //we should change the userId to name
+        io.to(sockets[user.senderId].id)
+            .emit('message', formatMessage(admin, `${user.name} refused to chat with you`));
+    });
+
+    socket.on('drinkInvite', data => {
+
+        console.log(data.sender)
+        console.log(data.userId)
+        console.log(data.drink)
+
+        //we should change the userId to name
+        io.to(sockets[data.userId].id)
+            .emit('drinkInvite', {
+                message: `sent you a ${data.drink}`,
+                sender: data.sender
+            })
+
+    });
+
+    // user= user to send the invite to
     socket.on('ChatInvite', user => {
 
-        console.log(sockets[user])
-        //io.to(sockets[user].sock).emit('ChatInvite', `${userId} invited you to a private chat`)
+        //we should change the userId to name
+        io.to(sockets[user].id)
+            .emit('ChatInvite', {
+                message: `invited you to a private chat`,
+                receiver: user,
+                sender: userId
+        })
     });
 
     socket.on("joinChat", (username) => {
         console.log(username)
-        console.log('leave: ' + lobby)
-        socket.leave(lobby)
 
-        console.log('join: ' + roomId)
-        socket.join(roomId)
-
-        socket.emit('message', formatMessage(admin, `Hey ${username}, enjoy your chat with ${username}`));
+        socket.emit('message', formatMessage(admin, `Hey ${username}, enjoy your chat`));
         socket.to(roomId).emit('message', formatMessage(admin, `${username} has joined chat...`));
 
         socket.on('typing', (data) => {
@@ -96,6 +120,7 @@ io.on('connection', socket => {
         });
 
         socket.on('disconnect', () => {
+            console.log('deleted')
             delete sockets[userId];
             socket.leave()
         })
