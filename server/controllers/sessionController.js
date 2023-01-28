@@ -42,7 +42,7 @@ exports.handleLogin = async (req, res, next) => {
         req.session.user = user;
         console.log({login: req.session.user});
         console.log({cookies: req.cookies});
-        res.redirect(`/qrCode/${user._id}`)
+        res.send(`${user._id}`)
     } catch (err) {
         console.log(err)
     }
