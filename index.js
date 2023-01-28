@@ -52,22 +52,22 @@ const lobby = 'BarName';
 
 io.on('connection', socket => {
     //save the socket in our dict of sockets with the user id
-    const userId = socket.handshake.query.id;
+    const userId = socket.handshake.query.userId;
     const roomId = socket.handshake.query.roomId;
+
     sockets[userId] = socket;
-    console.log('join: ' + lobby)
-    socket.join(lobby)
+    console.log('userId is: ' + userId)
+
+    if (roomId) {
+        socket.join(roomId)
+        console.log('joined to room: ' + roomId)
+    }
 
     // test
-    console.log(roomId)
-    console.log(userId)
-    socket.emit('test', "testing ah sheli")
+    socket.on('ChatInvite', user => {
 
-    socket.on('testing', message => {
-        console.log(message)
-
-        socket.emit('test2', "hey react")
-
+        console.log(sockets[user])
+        //io.to(sockets[user].sock).emit('ChatInvite', `${userId} invited you to a private chat`)
     });
 
     socket.on("joinChat", (username) => {
