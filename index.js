@@ -12,12 +12,16 @@ const port = process.env.PORT || 4020;
 const app = express();
 
 // cookie parser middleware
-
+console.log(URL);
+// app.use(cors({
+//     origin: `http://localhost:3000`,
+//     credentials: true
+// }))
 app.use(cors({
-    origin: `${URL}`,
-    credentials: true
+    'origin': '*',
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
 }))
-
 app.use(express.static('./public'));
 app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}))

@@ -36,7 +36,6 @@ exports.handleLogin = async (req, res, next) => {
         if (!await bcrypt.compare(userPassword, user.password)) {
             throw new Error("incorrect password")
         }
-        req.session.user = user;
         res.send(`${user._id}`)
     } catch (err) {
         console.log(err)
