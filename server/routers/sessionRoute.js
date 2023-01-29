@@ -8,7 +8,6 @@ sessionRouter.use(express.json());
 sessionRouter.get('/', session_controller.sendLoginPage)
 sessionRouter.get('/homePage', session_controller.sendHomePage);
 sessionRouter.get('/chat', session_controller.sendChatPage)
-sessionRouter.get('/userInfo', session_controller.getSessionInfo);
 sessionRouter.get('/qrCode/:id', session_controller.sendQRPage)
 
 sessionRouter.post('/login', session_controller.handleLogin);
