@@ -10,9 +10,6 @@ const {ImageModel} = require("../models/Image.model");
 const crypto = require('crypto');
 const sessionId = crypto.randomBytes(32).toString('hex');
 
-
-//////////////////////////////////////////////////////////////////////
-
 exports.sendLoginPage = (req, res) => {
     console.log("sendLoginPage")
     fileSender(req, res, '../../client/index.html')
@@ -72,42 +69,12 @@ exports.handleSignUp = async (req, res) => {
 }
 
 exports.handleLogOut = async function (req, res) {
-    // if (req.session) {
-    //     // Destroy the session
-    //     req.session.destroy(function (err) {
-    //         if (err) {
-    //             console.log(err);
-    //             res.send("Error while logging out.");
-    //         } else {
-    //             res.redirect("/");
-    //         }
-    //     });
-
     const unconnected = await connectedUsers.delete(req.body);
     if (!unconnected) {
         throw new Error("failed to logout")
     }
     res.send(200);
-
-    // } else {
-    //     // Redirect to login page if no session exists
-    //     res.redirect("/");
-    // }
 }
-
-exports.getSessionInfo = function (req, res) {
-    if (req.session) {
-        console.log(req.session)
-        res.status(200).json(req.session);
-    } else {
-        res.status(401).send('No session found');
-    }
-};
-// if (req.session.hasOwnProperty('user'))
-//     res.status(200).json(req.session.user);
-// else
-//     res.status(404).json({});
-
 
 const fileSender = (req, res, val) => {
     res.sendFile(path.join(__dirname, val));
