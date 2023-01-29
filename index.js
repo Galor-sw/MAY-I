@@ -67,9 +67,12 @@ io.on('connection', socket => {
         console.log(Object.keys(sockets))
         console.log(sockets[user])
         console.log(user)
-        //we should change the userId to name
-        io.to(sockets[user.senderId].id)
-            .emit('message', formatMessage(admin, `${user.name} refused to chat with you`));
+        if (user.senderId in sockets)
+        {
+            //we should change the userId to name
+            io.to(sockets[user.senderId].id)
+                .emit('message', formatMessage(admin, `${user.name} refused to chat with you`));
+        }
     });
 
     socket.on('drinkInvite', data => {
@@ -79,24 +82,27 @@ io.on('connection', socket => {
         console.log(data.drink)
 
         //we should change the userId to name
-        io.to(sockets[data.userId].id)
-            .emit('drinkInvite', {
-                message: `sent you a ${data.drink}`,
-                sender: data.sender
-            })
-
+        if (data.userId in sockets) {
+            io.to(sockets[data.userId].id)
+                .emit('drinkInvite', {
+                    message: `sent you a ${data.drink}`,
+                    sender: data.sender
+                })
+        }
     });
 
     // user= user to send the invite to
     socket.on('ChatInvite', user => {
 
         //we should change the userId to name
-        io.to(sockets[user].id)
-            .emit('ChatInvite', {
-                message: `invited you to a private chat`,
-                receiver: user,
-                sender: userId
-        })
+        if (user in sockets) {
+            io.to(sockets[user].id)
+                .emit('ChatInvite', {
+                    message: `invited you to a private chat`,
+                    receiver: user,
+                    sender: userId
+                })
+        }
     });
 
     socket.on("joinChat", (username) => {
