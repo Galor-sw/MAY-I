@@ -25,12 +25,13 @@ let imageFile;
 
 async function loadimg() {
     const file = document.getElementById('signup-form').elements['image'].files[0];
+    console.log(file);
     const reader = new FileReader();
     await reader.readAsDataURL(file);
     reader.onloadend = () => {
         imageFile = reader.result;
+        console.log(imageFile);
     }
-
 }
 
 document.onsubmit = (e) => {

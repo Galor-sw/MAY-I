@@ -35,3 +35,4 @@ exports.addUser = async (req, res) => {
         res.send(200);
     }
 }
+

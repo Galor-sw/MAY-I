@@ -96,7 +96,7 @@ io.on('connection', socket => {
                 message: `invited you to a private chat`,
                 receiver: user,
                 sender: userId
-        })
+            })
     });
 
     socket.on("joinChat", (username) => {

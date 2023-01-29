@@ -40,8 +40,6 @@ exports.handleLogin = async (req, res, next) => {
             throw new Error("incorrect password")
         }
         req.session.user = user;
-        console.log({login: req.session.user});
-        console.log({cookies: req.cookies});
         res.send(`${user._id}`)
     } catch (err) {
         console.log(err)
@@ -52,7 +50,7 @@ exports.handleLogin = async (req, res, next) => {
 exports.handleSignUp = async (req, res) => {
     try {
         const user = req.body;
-        const {image} = user;
+        const image = user.image;
         const uploadedStatus = await cloudinary.v2.uploader.upload(image, {
             upload_preset: "users_profile"
         });
@@ -67,7 +65,8 @@ exports.handleSignUp = async (req, res) => {
         res.redirect('/');
 
     } catch (e) {
-        console.log("4")
+        console.log("4");
+        console.log(e);
         res.status(401).json({message: e.message});
     }
 }
