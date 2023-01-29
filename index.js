@@ -4,36 +4,23 @@ const bodyParser = require('body-parser');
 const totalSession = require('./server/routers/sessionRoute');
 const connectedRoute = require('./server/routers/connectedRoute');
 const cors = require('cors')
-const cookieParser = require("cookie-parser");
-const cookieSession = require('cookie-session');
 
 const socketio = require('socket.io');
 const formatMessage = require('./utils/messages');
-
+const URL = process.env.URL
 const port = process.env.PORT || 4020;
 const app = express();
 
 // cookie parser middleware
-app.use(cookieParser());
 
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: `${URL}`,
     credentials: true
 }))
 
-app.use(cookieSession({
-    name: 'session',
-    keys: [process.env.SESSION_KEY],
-    domain: 'localhost',
-    maxAge: 86400000
-}));
-
-
 app.use(express.static('./public'));
-
 app.use(bodyParser.json({limit: '30mb', extended: true}))
 app.use(bodyParser.urlencoded({limit: '30mb', extended: true}))
-
 
 app.use('/', totalSession.sessionRouter);
 app.use('/connected', connectedRoute.connectedRouter);
@@ -43,10 +30,8 @@ app.use('/client/js', express.static(__dirname + '/client/js'));
 app.use('/favicon.ico', express.static('./favicon.ico'));
 
 const server = app.listen(port, () => console.log(`Express server is running on port ${port}`));
-
 const io = socketio(server, {cors: {origin: "*"}});
 const admin = 'Chat Admin';
-
 const sockets = {};
 const lobby = 'BarName';
 
