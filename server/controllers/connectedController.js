@@ -25,13 +25,16 @@ exports.addUser = async (req, res) => {
     const col = seat.col;
     const idResult = await connectedUsers.retrieve({'user_id': user_id});
     const seatResult = await connectedUsers.retrieve({'seat.row': row, 'seat.col': col});
-    if (seatResult && idResult) {
+    console.log('idResult: ', idResult)
+    console.log(seatResult)
+    if (seatResult !== null && idResult !== null) {
         res.status(409).send({error: 'Chair already in use'});
     } else {
         const userToAdd = await connectedUsers.create(req.body);
         if (!userToAdd) {
             throw new Error("something went wrong")
         }
+        res.status(200);
         res.send(200);
     }
 }
