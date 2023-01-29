@@ -1,12 +1,22 @@
 const ConnectedUsers = require("../repositories/connectedUserRepository")
+const UserRepo = require("../repositories/userRepository")
 const connectedUsers = new ConnectedUsers();
+const userRepo = new UserRepo();
 
 exports.getAll = async (req, res) => {
-    const tables = await connectedUsers.getAll();
-    if (!tables) {
-        throw new Error("tables doesn't exist")
+    const Users = await connectedUsers.getAll();
+    if (!Users) {
+        throw new Error("no users connected")
     }
-    res.send(tables);
+    res.send(Users);
+}
+
+exports.getOne = async (req, res) => {
+    const user = await userRepo.retrieve({_id: req.params.id});
+    if (!user) {
+        throw new Error("user doesn't exist")
+    }
+    res.send(user);
 }
 
 exports.addUser = async (req, res) => {
