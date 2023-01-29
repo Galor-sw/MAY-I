@@ -61,7 +61,7 @@ exports.handleSignUp = async (req, res) => {
         res.redirect('/');
 
     } catch (e) {
-        console.log("4");
+        console.log("error: ");
         console.log(e);
         res.status(401).json({message: e.message});
     }

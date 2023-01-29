@@ -11,12 +11,7 @@ const URL = process.env.URL
 const port = process.env.PORT || 4020;
 const app = express();
 
-// cookie parser middleware
-console.log(URL);
-// app.use(cors({
-//     origin: `http://localhost:3000`,
-//     credentials: true
-// }))
+
 app.use(cors({
     'origin': '*',
     'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -45,19 +40,13 @@ io.on('connection', socket => {
     const roomId = socket.handshake.query.roomId;
 
     sockets[userId] = socket;
-    console.log('userId is: ' + userId)
 
     if (roomId) {
         socket.join(roomId)
-        console.log('joined to room: ' + roomId)
     }
 
     socket.on('refuseChat', user => {
-        console.log(Object.keys(sockets))
-        console.log(sockets[user])
-        console.log(user)
-        if (user.senderId in sockets)
-        {
+        if (user.senderId in sockets) {
             //we should change the userId to name
             io.to(sockets[user.senderId].id)
                 .emit('message', formatMessage(admin, `${user.name} refused to chat with you`));
@@ -65,11 +54,6 @@ io.on('connection', socket => {
     });
 
     socket.on('drinkInvite', data => {
-
-        console.log(data.sender)
-        console.log(data.userId)
-        console.log(data.drink)
-
         //we should change the userId to name
         if (data.userId in sockets) {
             io.to(sockets[data.userId].id)
@@ -95,8 +79,6 @@ io.on('connection', socket => {
     });
 
     socket.on("joinChat", (username) => {
-        console.log(username)
-
         socket.emit('message', formatMessage(admin, `Hey ${username}, enjoy your chat`));
         socket.to(roomId).emit('message', formatMessage(admin, `${username} has joined chat...`));
 
@@ -115,7 +97,6 @@ io.on('connection', socket => {
         });
 
         socket.on('disconnect', () => {
-            console.log('deleted')
             delete sockets[userId];
             socket.leave()
         })

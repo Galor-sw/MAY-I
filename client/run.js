@@ -17,14 +17,12 @@ function getMousePosition(canvas, event) {
     let rect = canvas.getBoundingClientRect();
     let x = event.clientX - rect.left.toFixed();
     let y = event.clientY - rect.top.toFixed();
-    console.log("Coordinate x: " + x,
-        "Coordinate y: " + y);
+
 }
 
 
 canvas.addEventListener("mousedown", function (e) {
     getMousePosition(canvas, e);
-    console.log('test');
 });
 
 //////////////////////////////////

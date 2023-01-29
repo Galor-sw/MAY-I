@@ -7,7 +7,6 @@ let {username, inviter} = Qs.parse(location.search, {
     ignoreQueryPrefix: true
 });
 
-console.log(window.location.origin)
 const socket = io(window.location.origin, {query: {id: username, roomId: inviter}});
 
 // Typing...
@@ -23,7 +22,6 @@ socket.emit('joinChat', {username});
 
 socket.on('connection', async (socket) => {
     socket.data.user = username
-    console.log('11111')
 });
 
 // Message from server
@@ -40,7 +38,7 @@ disconnect.addEventListener('click', (e) => {
     socket.emit('close', {user: username, text: "has diconnected..."});
 });
 
-socket.on('redirect', dest =>{
+socket.on('redirect', dest => {
     window.location.replace(dest);
 })
 
